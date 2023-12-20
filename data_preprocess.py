@@ -26,7 +26,7 @@ def convert(size, box0, box1, box2, box3):
 def process(mode):
     prefix = 'train' if mode == 'train' else 'val'
     
-    outpath_txt = f'./data/WiderPerson/label/{mode}'   
+    outpath_txt = f'./data/WiderPerson/labels/{mode}'   
     outpath_jpg = f'./data/WiderPerson/images/{mode}'
     os.makedirs(outpath_txt, exist_ok=True)
     os.makedirs(outpath_jpg, exist_ok=True)
