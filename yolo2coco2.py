@@ -65,8 +65,8 @@ def yolo2coco(arg):
                 y2 = (y + h / 2) * H
                 # 标签序号从0开始计算, coco2017数据集标号混乱，不管它了。
                 cls_id = int(label[0])
-                # if not cls_id == 0:
-                #     continue   
+                if not cls_id == 0:
+                    continue   
                 width = max(0, x2 - x1)
                 height = max(0, y2 - y1)
                 dataset['annotations'].append({
