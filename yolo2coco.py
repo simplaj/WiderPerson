@@ -14,7 +14,7 @@ def yolo_to_coco(yolo_dir, img_dir, output_file):
     image_id = 0
     for root, _, files in os.walk(yolo_dir):
         for file in files:
-            image_id += 1
+            image_id = int(file.rsplit(".", 1)[0])
             image = {}
             image['file_name'] = file.rsplit(".", 1)[0] + '.jpg'
             img2 = cv2.imread(os.path.join(img_dir, image['file_name']))
@@ -38,11 +38,12 @@ def yolo_to_coco(yolo_dir, img_dir, output_file):
                 annotation['segmentation'] = []
                 data['annotations'].append(annotation)
                 
-        for i in range(5):   # assuming you have 80 classes
+        for i in range(5):   # assuming you have 80 classes 
+            label_map = ['pedestrians', 'riders', 'partially-visible persons', 'ignore regions', 'crowd']
             category = {}
             category['supercategory'] = 'none'
             category['id'] = i
-            category['name'] = i
+            category['name'] = i  # label_map[i]
             data['categories'].append(category)
     json.dump(data, open(output_file,'w'))
 
