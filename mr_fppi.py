@@ -1,9 +1,24 @@
 import brambox as bb
 import numpy as np
 import pandas as pd
+import json
 
 
-pred = bb.io.load('det_coco', '/home/tzh/Project/WiderPerson/runs/detect/val3/predictions.json')
-gt = bb.io.load('det_coco', '/home/tzh/Project/WiderPerson/output.json')
-print(pred.head())
-print(gt.head())
+classes = ['pedestrians', 'riders', 'partially-visible persons', 'ignore regions', 'crowd']
+def rm_other(json_path):
+    with open(json_path, 'r') as f:
+        datas = json.load(f)
+    res = []
+    for data in datas:
+        data['category_id'] = classes[data['category_id']]
+        res.append(data)
+    with open('det.json', 'w') as f:
+        f.writelines(json.dumps(res))
+
+rm_other('/home/tzh/Project/WiderPerson/runs/detect/val3/predictions.json')
+pred = bb.io.load('det_coco', 'det.json')
+gt = bb.io.load('anno_coco', 'output.json')
+mr_fppi = bb.stat.mr_fppi(pred, gt)
+print(mr_fppi)
+res = bb.stat.lamr(mr_fppi)
+print(res)
