@@ -57,19 +57,20 @@ def process(mode):
             while line:
                 cls = int(line.split(' ')[0])
                 # if cls == 1:
-                if cls in [1, 2, 3, 4, 5]:
+                if cls in [1, 3]:
+                    cls_map = [0, 0, 0, 1, 1]
                     xmin = float(line.split(' ')[1])
                     ymin = float(line.split(' ')[2])
                     xmax = float(line.split(' ')[3])
                     ymax = float(line.split(' ')[4].split('\n')[0])
                     # print(img_size[0], img_size[1], xmin, ymin, xmax, ymax)
                     bb = convert(img_size, xmin, ymin, xmax, ymax)
-                    ans = ans + f'{cls - 1}' + ' ' + ' '.join(str(a) for a in bb) + '\n'
+                    ans = ans + f'{cls_map[cls]}' + ' ' + ' '.join(str(a) for a in bb) + '\n'
                 line = file.readline()
         with open(outpath, 'w') as outfile:
             outfile.write(ans)
         # 想保留原文件用copy
-        shutil.copy(img_path, outpath_jpg + '/' + img_id + '.jpg')
+        # shutil.copy(img_path, outpath_jpg + '/' + img_id + '.jpg')
         # 直接移动用这个
         # shutil.move(img_path, outpath_jpg + '/' + img_id + '.jpg')
 

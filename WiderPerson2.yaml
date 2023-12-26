@@ -1,0 +1,9 @@
+path: WiderPerson
+
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: pedestrians
+  1: partially-visible persons

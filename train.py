@@ -2,13 +2,13 @@ from ultralytics import YOLO
 
 
 if __name__ == '__main__':
-    model = YOLO('yolov8s.pt')
+    model = YOLO('yolov8n.pt')
 
     results = model.train(
-        data='WiderPerson.yaml',
-        epochs=400, 
-        imgsz=1000, 
-        batch=2,
+        data='WiderPerson2.yaml',
+        epochs=200, 
+        imgsz=640, 
+        batch=4,
         save_period=10,
         project='WiderPerson',
         )
