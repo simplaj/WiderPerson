@@ -161,7 +161,10 @@ cython_debug/
 
 # data
 data/*
+*.json
 
 # log
+WiderPerson
 runs
 wandb
+*.pt
