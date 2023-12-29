@@ -5,12 +5,12 @@ from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 import argparse
 
-classes = ['pedestrians', 'riders', 'partially-visible persons', 'ignore regions', 'crowd']# 这里改一下
+classes = ['pedestrians', 'partially-visible persons']# 这里改一下
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--image_path', default='/home/tzh/Project/WiderPerson/data/WiderPerson/images/test',type=str, help="path of images")# 图片路径改一下
 parser.add_argument('--label_path', default='/home/tzh/Project/WiderPerson/data/WiderPerson/labels/test',type=str, help="path of labels .txt")#图片标签路径改一下
-parser.add_argument('--save_path', type=str,default='test.json', help="if not split the dataset, give a path to a json file")
+parser.add_argument('--save_path', type=str,default='test2.json', help="if not split the dataset, give a path to a json file")
 arg = parser.parse_args()
 
 def yolo2coco(arg):
@@ -64,15 +64,15 @@ def yolo2coco(arg):
                 x2 = (x + w / 2) * W
                 y2 = (y + h / 2) * H
                 # 标签序号从0开始计算, coco2017数据集标号混乱，不管它了。
-                cls_id = int(label[0])
-                if not cls_id == 0:
+                cls_map = [0, 0, 0, 1, 1]
+                if not int(label[0]) in [0, 2]:
                     continue   
                 width = max(0, x2 - x1)
                 height = max(0, y2 - y1)
                 dataset['annotations'].append({
                     'area': width * height,
                     'bbox': [x1, y1, width, height],
-                    'category_id': cls_id,
+                    'category_id': cls_map[int(label[0])],
                     'id': ann_id_cnt,
                     'image_id': int(stem),
                     'iscrowd': 0,

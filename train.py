@@ -6,9 +6,10 @@ if __name__ == '__main__':
 
     results = model.train(
         data='WiderPerson2.yaml',
-        epochs=200, 
-        imgsz=640, 
-        batch=4,
+        epochs=400, 
+        imgsz=1024, 
+        batch=2,
+        lr0=5e-3,
         save_period=10,
         project='WiderPerson',
         )

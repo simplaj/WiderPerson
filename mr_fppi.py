@@ -16,7 +16,7 @@ def rm_other(json_path):
     with open('det.json', 'w') as f:
         f.writelines(json.dumps(res))
 
-rm_other('/home/tzh/Project/WiderPerson/runs/detect/val12/predictions.json')
+rm_other('/home/tzh/Project/WiderPerson/runs/detect/val14/predictions.json')
 pred = bb.io.load('det_coco', 'det.json')
 gt = bb.io.load('anno_coco', 'test.json')
 mr_fppi = bb.stat.mr_fppi(pred, gt)
